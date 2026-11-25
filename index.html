@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f4f5f8">
+<title>wassup.t4run — Video Editing</title>
+<style>
+:root{
+  --ink:#171923; --muted:#737887; --line:rgba(255,255,255,.72);
+  --glass:rgba(255,255,255,.58); --accent:#675cff; --accent2:#a8a1ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:
+    radial-gradient(ellipse at 12% 5%,rgba(175,190,255,.52),transparent 34%),
+    radial-gradient(ellipse at 88% 18%,rgba(220,190,255,.45),transparent 32%),
+    radial-gradient(ellipse at 55% 90%,rgba(190,225,255,.5),transparent 38%),
+    #f4f5f8;
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1100px, calc(100% - 40px));margin:auto}
+.nav{
+  position:sticky;top:14px;z-index:5;margin:14px auto 0;
+  width:min(1100px,calc(100% - 28px));padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:rgba(255,255,255,.58);border:1px solid var(--line);
+  border-radius:22px;backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  box-shadow:0 10px 35px rgba(42,48,80,.08)
+}
+.brand{font-weight:750;letter-spacing:-.5px}
+.navlinks{display:flex;gap:22px;color:#626879;font-size:13px}
+.navlinks a:hover{color:var(--accent)}
+.pill,.button{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border-radius:999px;padding:11px 17px;font-size:13px;font-weight:650;
+  transition:transform .2s,box-shadow .2s
+}
+.pill{background:rgba(255,255,255,.7);border:1px solid white}
+.button{background:linear-gradient(135deg,#7168ff,#938bff);color:white;box-shadow:0 9px 22px rgba(103,92,255,.25)}
+.button:hover,.pill:hover{transform:translateY(-2px)}
+.hero{padding:104px 0 74px;text-align:center}
+.eyebrow{
+  display:inline-flex;gap:8px;align-items:center;padding:8px 13px;
+  border:1px solid white;background:rgba(255,255,255,.55);
+  border-radius:999px;color:#666b7b;font-size:12px;
+  backdrop-filter:blur(14px)
+}
+.dot{width:7px;height:7px;border-radius:50%;background:#39c98a;box-shadow:0 0 0 4px rgba(57,201,138,.13)}
+h1{font-size:clamp(44px,8vw,82px);line-height:.98;letter-spacing:-5px;margin:25px auto 20px;max-width:850px}
+.gradient{background:linear-gradient(110deg,#5b54e8,#9b78d7 55%,#4f9cce);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:570px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.7}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}
+.glass{
+  background:var(--glass);border:1px solid rgba(255,255,255,.85);
+  backdrop-filter:blur(22px) saturate(155%);-webkit-backdrop-filter:blur(22px) saturate(155%);
+  box-shadow:0 18px 55px rgba(45,53,88,.09),inset 0 1px 0 rgba(255,255,255,.9)
+}
+.preview{
+  margin:18px auto 0;max-width:800px;min-height:210px;border-radius:30px;
+  padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left
+}
+.preview-card{border-radius:22px;padding:20px;min-height:160px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.preview-card:first-child{background:linear-gradient(145deg,rgba(105,96,255,.86),rgba(171,144,255,.72));color:white}
+.preview-card:last-child{background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(218,230,255,.8))}
+.mini-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;opacity:.75}
+.big-word{font-size:30px;font-weight:750;letter-spacing:-1.5px}
+.play{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.5)}
+section{padding:48px 0}
+.section-head{text-align:center;margin-bottom:25px}
+.kicker{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:750}
+h2{font-size:clamp(30px,5vw,44px);letter-spacing:-2px;margin:10px 0}
+.sub{color:var(--muted);line-height:1.6;margin:0 auto;max-width:520px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.service{padding:24px;border-radius:24px;min-height:190px}
+.icon{width:42px;height:42px;border-radius:14px;background:rgba(109,99,255,.1);display:grid;place-items:center;font-size:20px;margin-bottom:20px}
+.service h3{margin:0 0 8px;font-size:18px;letter-spacing:-.4px}
+.service p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.process{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{padding:22px;border-radius:22px}
+.num{font-size:12px;color:var(--accent);font-weight:800}
+.step h3{margin:12px 0 7px}
+.step p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.cta{padding:42px 28px;border-radius:30px;text-align:center}
+.cta p{color:var(--muted);line-height:1.6}
+footer{padding:30px 0 42px;text-align:center;color:#858a98;font-size:12px}
+@media(max-width:700px){
+ .navlinks{display:none}.hero{padding:78px 0 48px}h1{letter-spacing:-3px}
+ .preview{grid-template-columns:1fr}.preview-card{min-height:135px}
+ .grid,.process{grid-template-columns:1fr}
+ section{padding:35px 0}
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="#">wassup.t4run<span class="gradient">.</span></a>
+  <nav class="navlinks"><a href="#services">Services</a><a href="#process">How it works</a><a href="#contact">Contact</a></nav>
+  <a class="pill" href="https://www.instagram.com/wassup.t4run/" target="_blank" rel="noopener">Instagram ↗</a>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div class="eyebrow"><span class="dot"></span> Video editing • Open for enquiries</div>
+    <h1>Make every second<br><span class="gradient">stand out.</span></h1>
+    <p class="lead">Clean, creative edits for creators and brands. Turn your raw clips into videos people want to watch.</p>
+    <div class="actions">
+      <a class="button" href="https://www.instagram.com/wassup.t4run/" target="_blank" rel="noopener">DM on Instagram <span>↗</span></a>
+      <a class="pill" href="#services">Explore services ↓</a>
+    </div>
+    <div class="preview glass">
+      <div class="preview-card">
+        <span class="mini-label">Your footage</span>
+        <div class="big-word">Raw clips.</div>
+        <span class="mini-label">A good idea starts here</span>
+      </div>
+      <div class="preview-card">
+        <span class="mini-label">The final cut</span>
+        <div class="big-word">A fresh vibe. <span class="play">▶</span></div>
+        <span class="mini-label">Edited with purpose</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="services">
+    <div class="section-head">
+      <div class="kicker">What I can edit</div>
+      <h2>Made for your content.</h2>
+      <p class="sub">Choose an edit style that fits your idea. Share your footage and the vibe you're going for.</p>
+    </div>
+    <div class="grid">
+      <article class="service glass"><div class="icon">✦</div><h3>Reels & Shorts</h3><p>Fast-paced vertical edits designed for short-form content.</p></article>
+      <article class="service glass"><div class="icon">⌁</div><h3>Gaming Edits</h3><p>Highlights, synced moments, transitions and energetic cuts.</p></article>
+      <article class="service glass"><div class="icon">▤</div><h3>Creator Videos</h3><p>Clean cuts, captions and pacing for your creator content.</p></article>
+    </div>
+  </section>
+
+  <section class="wrap" id="process">
+    <div class="section-head">
+      <div class="kicker">Simple process</div>
+      <h2>From clips to final cut.</h2>
+    </div>
+    <div class="process">
+      <article class="step glass"><div class="num">01 / BRIEF</div><h3>Tell me your idea</h3><p>Send a DM with your video type, references and deadline.</p></article>
+      <article class="step glass"><div class="num">02 / FOOTAGE</div><h3>Share your clips</h3><p>Send the footage and any text, music or style preferences.</p></article>
+      <article class="step glass"><div class="num">03 / DELIVERY</div><h3>Get your edit</h3><p>We'll confirm the price and delivery details before the edit begins.</p></article>
+    </div>
+  </section>
+
+  <section class="wrap" id="contact">
+    <div class="cta glass">
+      <div class="kicker">Let's create</div>
+      <h2>Got clips? Let's edit.</h2>
+      <p>Message me on Instagram to discuss your idea and get a quote.</p>
+      <a class="button" href="https://www.instagram.com/wassup.t4run/" target="_blank" rel="noopener">wassup.t4run ↗</a>
+    </div>
+  </section>
+</main>
+<footer>© 2026 wassup.t4run · Video editing enquiries</footer>
+</body>
+</html>
